@@ -1,0 +1,253 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>vue-component</title>
+        <meta charset="utf-8" />
+        <link href="./index.css" type="text/css" rel="stylesheet" />
+        <style>
+            .my-input-container{
+                border: 1px solid black;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="root">
+            <button-counter 
+                v-for="data in dataList"
+                :key="data.id"
+                :title="data.title"
+                :content="data.content"
+            >
+            </button-counter>
+            <blog
+                @change="changeContent"
+                :content="content"
+                :key="'blog' + 1"
+            ></blog>
+            <blog
+                @change="content += '1'"
+                :content="content"
+                :key="'blog' + 2"
+            ></blog>
+            <!-- 这种方法只能用$event接受第一个值 -->
+            <blog
+                @change="changeContent($event)"
+                :content="content"
+                :key="'blog' + 3"
+            ></blog>
+            <p>{{ inputValue }}</p>
+            <!-- 以下两者，等价 -->
+            <my-input
+                v-model="inputValue"
+            ></my-input>
+            <my-input
+                v-bind:value="inputValue"
+                v-on:input="inputValue=$event"
+            ></my-input>
+            <!-- v-model默认会将input事件作为响应事件，但checkbox可能是change，可以通过组件内部model属性改变 -->
+            <my-checkbox v-model="checked"></my-checkbox>
+            <label>{{ checked }}</label>
+            <div is="blog"></div>
+            <p>{{ obj }}</p>
+            <test :my-message="'1'" :obj="obj"></test>
+            <local-component></local-component>
+            <br />
+            <component 
+                :is="activeComponent"
+            ></component>
+            <component-a 
+                @say="say"
+            ></component-a>
+            <component-b></component-b>
+            <slot1>
+                <p>这是一个插槽</p>
+            </slot1>
+            <slot2>
+                <!-- 
+                    slot="xxx" 这种已经废弃,但还被保留着,请使用v-slot:xxx,该属性必须用在template标签上，
+                    用在普通标签或组件上的话只能v-slot:default，即放在默认插槽内，否则报错
+                 -->
+                <p slot="slot1">这是slot1的插槽</p>
+                <template v-slot:slot2>
+                    <p>这是slot2的插槽</p>
+                </template>
+                <p>这是默认的插槽</p>
+                <p>这是默认的插槽</p>
+            </slot2>
+            <slot3>
+                <!-- 
+                    作用域插槽类似把内容当做组件,slot3中slot标签定义的属性会被放到slot-scope同名的对象中
+                    slot-scope方式已经被废弃但功能还被保留着，最新用法为v-slot:default="props"，后续用法和原来一样
+                    (用props更贴切，这里测试) 
+                -->
+                <template slot-scope="data" slot="slot1">
+                    <div>{{ data.content }}</div>
+                </template>
+            </slot3>
+            <slot3>
+                <template v-slot:slot1="props">
+                    <p>{{ props.content }}</p>
+                </template>
+                <!-- v-slot="props"等价于v-slot:default="props" -->
+                <template v-slot="props">
+                    <p>{{ props.content }}</p>
+                </template>
+                <!-- 
+                    也可以使用解构赋值，本质上是将内部slot标签的属性放到一个对象上作为函数参数，
+                    函数体内则是slot的内容，然后像调用函数一样渲染(跟react类似，标签即为函数，会自动渲染)
+                    因为是参数所以能够解构赋值
+                -->
+                <!-- 下面这个不能用v-slot:default了，会不渲染 -->
+                <template v-slot:slot2="{ content: newContent }">
+                    <p>{{ newContent }}</p>
+                </template>
+            </slot3>
+            <slot4 :list="dataList">
+                <li slot="slot" slot-scope="props">
+                    {{ props.data.content }}
+                </li>
+            </slot4>
+            <slot5>
+                <my-input slot="slot"></my-input>
+                <p>456</p>
+            </slot5>
+            <slot6></slot6>
+            <slot7></slot7>
+            <p>当前slotName:{{ slotname }}</p>
+            <slot8
+                :slot-name.sync="slotname"
+            >
+                <template v-slot:[slotname]>
+                    <p>这是内容</p>
+                </template>
+            </slot8>
+            <slot9>
+                <!-- 简写 -->
+                <template #default="props">
+                    <p>this is slot9: {{ props.data }}</p>
+                </template>
+            </slot9>
+            <slot10 :slot-name="'slot10'">
+                <template #default="props">
+                    <log-title :title="title"></log-title>
+                </template>
+            </slot10>
+            <input name="testRefInput" ref="input" />
+            <async-component>
+            </async-component>
+            <test
+                message="aaa"
+                first-name="jack"
+                :[propname]="1"
+            ></test>
+            <listener></listener>
+            <text-document
+                :title="title"
+                v-on:update:title="title = $event"
+            ></text-document>
+            <!-- 简写方式为: -->
+            <text-document
+                :title.sync="title"
+            ></text-document>
+        </div>
+        <div id="root2">
+            <div v-show="false">
+                <p>{{ inputValue }}</p>
+                <my-input
+                    v-bind:value="inputValue"
+                    v-on:input="inputValue=$event"
+                ></my-input>
+            </div>
+        </div>
+        <label>123<input /></label>
+    </body>
+    <script src="../../js/vue.js"></script>
+    <script src="../../js/jquery-1.11.2.min.js"></script>
+    <script src="./components/button-counter.js"></script>
+    <script src="./components/blog.js"></script>
+    <script src="./components/my-input.js"></script>
+    <script src="./components/test.js"></script>
+    <script src="./components/my-checkbox.js"></script>
+    <script src="./components/component-a.js"></script>
+    <script src="./components/component-b.js"></script>
+    <script src="./components/slot.js"></script>
+    <script src="./components/async-component.js"></script>
+    <script src="./components/listener.js"></script>
+    <script src="./components/text-document.js"></script>
+    <script src="./components/log-title.js"></script>
+    <script>
+        // 局部组件，定义在哪个实例对应的容器里面，只能在该容器内使用
+        const LocalComponent = {
+            template: `<button @click="num ++">局部组件{{ num }}</button>`,
+            data: function() {
+                return {
+                    num: 0,
+                }
+            },
+        };
+        const globalObj = new Vue();
+        // 组件实例定义要再new Vue() 前面
+        var vm = new Vue({
+            el: '#root',
+            data: {
+                dataList: [{
+                    title: 'title 1',
+                    content: 'this is one',
+                    id: 1,
+                }, {
+                    title: 'title 2',
+                    content: 'this is two',
+                    id: 2,
+                }, {
+                    title: 'title 3',
+                    content: 'this is three',
+                    id: 3,
+                }],
+                content: 'xxxxxxxxx',
+                inputValue: '123',
+                obj: {
+                    a: 1,
+                },
+                checked: true,
+                activeComponent: 'local-component',
+                title: 'title啊',
+                slotname: 'slot1',
+                propname: 'data',
+            },
+            methods: {
+                changeContent: function(content, data) {
+                    console.log(content, data);
+                    this.content = content;
+                },
+                changeInputValue: function(value) {
+                    console.log(value);
+                },
+                say: function(content) {
+                    console.log(content);
+                },
+                changeTitle: function() {
+                    console.log('title changed');
+                },
+                toggleSlotName: function(v) {
+                    console.log(v);
+                },
+            },
+            components: {
+                'local-component': LocalComponent,
+            }
+        });
+        console.log(vm.$refs.input); // 获取组件的引用
+
+        var vm2 = new Vue({
+            el: '#root2',
+            data: {
+                inputValue: '123',
+            },
+            methods: {
+            },
+            components: {
+            }
+        });
+
+    </script>
+</html>

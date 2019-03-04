@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>vue-animation</title>
+        <meta charset="utf-8" />
+        <link href="./index.css" type="text/css" rel="stylesheet" />
+        <style>
+        
+        </style>
+    </head>
+    <body>
+        <button onclick="startAnimation()">start</button>
+        <button onclick="stopAnimation()">stop</button>
+        <br />
+        <div class="container">
+            <div class="move-right normal-transition-div" id="normalTransitionDiv"></div>
+            <div class="normal-animation-div" id="normalAnimationDiv"></div>
+        </div>
+        <div id="root">
+            <button @click="showHello = !showHello">toggle</button>
+            <!-- duration定义的时间优先级高于css定义的持续时间 -->
+            <transition-group :duration="2000">
+                <p v-if="!showHello" key="hello1">hello1</p>
+                <p v-if="showHello" key="hello2">hello2</p>
+                <p v-if="!showHello" key="hello3">hello3</p>
+            </transition-group>
+        </div>
+    </body>
+    <script src="../../js/vue.js"></script>
+    <script src="../../js/jquery-1.11.2.min.js"></script>
+    <script src="./index.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#root',
+            data: {
+                showHello: true,
+            },
+        });
+        console.log(vm);
+
+    </script>
+</html>

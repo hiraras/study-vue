@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>vue-life-recycle</title>
+        <meta charset="utf-8" />
+        <link href="./index.css" type="text/css" rel="stylesheet" />
+        <style>
+        
+        </style>
+    </head>
+    <body>
+        <div id="root">
+            <p>{{ a }}</p>
+            <p>{{ c }}</p>
+        </div>
+    </body>
+    <script src="../../js/vue.js"></script>
+    <script src="../../js/jquery-1.11.2.min.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#root',
+            data: {
+            	a: 1,
+            	b: 2,
+                c: 3,
+            },
+            // 生命周期函数this都指向实例对象，故不能使用箭头函数
+            beforeCreate: function() {
+                // 实例创建之前执行
+                console.log('before create');
+            },
+            created: function() {
+                // 创建vm实例后执行
+                console.log('created');
+            },
+            beforeMount: function() {
+                console.log('before mount');
+            },
+            mounted: function() {
+                console.log('mounted');
+            },
+            beforeDestroy: function() {
+                console.log('before destroy');
+            },
+            destroyed: function() {
+                console.log('destroyed');
+            },
+            beforeUpdate: function() {
+                console.log('before update');
+            },
+            updated: function() {
+                console.log('updated');
+            },
+        });
+        vm.a = 2;
+        console.log(vm);
+
+    </script>
+</html>

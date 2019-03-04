@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>vue-show-test</title>
+        <meta charset="utf-8" />
+        <link href="./index.css" type="text/css" rel="stylesheet" />
+        <style>
+            *:not(ol){
+                margin: 0;
+                padding: 0;
+            }
+            .if{
+                color: red;
+            }
+            .ja{
+                background-color: yellow;
+            }
+            .i{
+                color: green;
+            }
+            .am{
+                background-color: yellow;
+            }
+            .example1{
+                border: 1px solid black;
+            }
+            .outter{
+                background: red;
+                padding-bottom: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="root">
+            <root1></root1>
+        </div>
+        <div id="root2">
+            <root2></root2>
+        </div>
+        <div id="root3">
+            <!-- 过滤器 -->
+            <div>{{ message | filterA(message2, 'hello') | filterB }}</div>
+            <p>{{ filter() }}</p>
+        </div>
+        <button onclick="testChange(this)">测试值变化</button>
+    </body>
+    <script src="../../js/vue.js"></script>
+    <script src="../../js/jquery-1.11.2.min.js"></script>
+    <script src="./components/root1.js"></script>
+    <script src="./components/root2.js"></script>
+    <script>
+        // data、methods、computed中如果有属性名重复了，在初始化的时候如果data中有，则methods和computed中的值会报一个错
+        // 如果没有，则优先应用methods中的值
+        var vm = new Vue({
+            el: '#root',
+        });
+        console.log(vm);
+
+        var vm2 = new Vue({
+            el: '#root2',
+        });
+
+        var vm3 = new Vue({
+            el: '#root3',
+            data: {
+                message: 'abcdefg',
+                message2: 'gfedcba',
+            },
+            filters: {
+                // 上一步处理结果作为第一个参数，作为函数执行时，各个参数往后挪一位
+                filterA: function(value, arg1, arg2) {
+                    console.log(value, arg1, arg2);
+                    return value.charAt(0).toUpperCase() + value.slice(1);
+                },
+                // 可以串联，上一个的结果作为下一个的参数
+                filterB: function(value) {
+                    console.log(value);
+                    return value.slice(0, value.length - 1) + value.charAt(value.length - 1).toUpperCase();
+                },
+            },
+            methods: {
+                filter: function() {
+                    return 123;
+                },
+            },
+        });
+        
+        function testChange(e) {
+            console.log(e)
+            vm2.obj.c = 2;
+        }
+        function test() {
+            console.log('outter');
+        }
+        // 可配置keyup.enter对应的键盘码,下面定义值为32(默认对应space),此时按下space键，
+        // 绑定了keyup.enter的事件会执行
+        // Vue.config.keyCodes.enter = 32;
+    </script>
+</html>
