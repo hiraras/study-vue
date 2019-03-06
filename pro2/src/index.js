@@ -2,6 +2,8 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './views/router';
 import Vuex from 'vuex';
+import storeA from './states/moduleA';
+import storeB from './states/moduleB';
 
 Vue.use(Vuex);
 
@@ -37,11 +39,17 @@ const actions = {
         context.commit('changeObj', value);
     },
 }
+// const store = new Vuex.Store({
+//     state: initialState,
+//     getters: getters,
+//     mutations: mutations,
+//     actions: actions,
+// });
 const store = new Vuex.Store({
-    state: initialState,
-    getters: getters,
-    mutations: mutations,
-    actions: actions,
+    modules: {
+        storeA,
+        storeB,
+    }
 });
 new Vue({
     router: router,
