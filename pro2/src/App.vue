@@ -1,10 +1,12 @@
 <template>
     <div class="container">
-        {{ a }}
+        <p>this is app</p>
+        <router-link to="/home">to home</router-link>
     </div>
 </template>
 
 <script>
+    import Home from './views/Home/index.vue';
     export default {
         data() {
             return {
@@ -18,6 +20,9 @@
                 }, 1000)
             });
             this.a = await p;
+        },
+        components: {
+            Home,
         }
     }
 </script>
