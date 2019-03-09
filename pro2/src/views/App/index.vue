@@ -1,12 +1,12 @@
 <template>
     <div class="container">
         <p>this is app</p>
-        <router-link to="/home">to home</router-link>
+        <router-link to="/home/2">to home</router-link>
     </div>
 </template>
 
 <script>
-    import Home from './views/Home/index.vue';
+    import Home from '../Home/index.vue';
     export default {
         data() {
             return {
@@ -20,6 +20,7 @@
                 }, 1000)
             });
             this.a = await p;
+            console.log(this.$route);
         },
         components: {
             Home,

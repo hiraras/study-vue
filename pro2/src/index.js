@@ -1,7 +1,7 @@
 import Vue from 'vue';
-import App from './App.vue';
-import router from './views/router';
 import Vuex from 'vuex';
+import App from './views/App/index.vue';
+import router from './views/router';
 import storeA from './states/moduleA';
 import storeB from './states/moduleB';
 
@@ -51,12 +51,17 @@ const store = new Vuex.Store({
         storeB,
     }
 });
+router.beforeEach((to, from, next) => {
+    console.log(to, from);
+    next();
+});
 new Vue({
+    mode: 'history',
     router: router,
     store: store,
-    el: '#root',
+    // el: '#root',
     template: '<router-view></router-view>',
     components: {
         App,
     }
-});
+}).$mount('#root');
