@@ -112,7 +112,7 @@ Vue.component('root2', {
         <!-- 
             一般情况下点击p标签会先执行innerClick，再执行outterClick,capture修饰过后，
             各个层级的事件触发时机为，有capture先于没有capture，都有capture的，外部先于内部的,
-            都没有capture的内部先于外部的
+            都没有capture的内部先于外部的,(有capture是在捕获的时候触发,没有的则是在冒泡的时候触发)
         -->
         <div @click.capture="outterClick" class="outter">
             <p @click.capture='innerClick'>
