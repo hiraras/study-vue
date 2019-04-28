@@ -1,6 +1,7 @@
 Vue.component('log-title', {
     props: {
-        title: String
+        title: String,
+        props: null,
     },
     template: `
     <p>{{ title }}</p>
@@ -8,5 +9,6 @@ Vue.component('log-title', {
     inject: ['fatherName'],
     mounted: function() {
         console.log(this.fatherName);
+        console.log(this.props);
     },
 })

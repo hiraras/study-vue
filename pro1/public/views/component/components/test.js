@@ -42,7 +42,7 @@ Vue.component('test', {
     template: `
     <div>
         <p>{{ myMessage }}</p>
-        <p v-if="firstName">{{ firstName }}</p>
+        <p v-if="firstName">firstName: {{ firstName }}</p>
     </div>
     `,
     mounted: function() {

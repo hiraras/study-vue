@@ -1,6 +1,10 @@
 Vue.component('my-input', {
     // 会被包含在实例中（生命周期函数的this）
-    props: ['value'],
+    props: {
+        value: {
+            default: 0
+        }
+    },
     data: function() {
         // 根据props初始化组件的state可以在这里，也可以在computed中
         return {

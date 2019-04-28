@@ -72,6 +72,9 @@ Vue.component('root1', {
         changeDataList: function() {
             this.dataList[1].content = 'three';
         },
+        test: function() {
+            console.log('test');
+        }
     },
     // computed的属性只有他的依赖发生改变才会重新计算，因为它会缓存之前计算的值
     // 例如返回的值如果为new Date().getTime()，不管拿几次值都会返回之前的，而methods
@@ -159,6 +162,7 @@ Vue.component('root1', {
             {{ item }} - {{ key }} - {{ index }}
         </div>
         <input v-for="item of dataList" v-model="item.content" />
+        <button v-on:click="test">testa</button>
     </div>
     `,
 });
