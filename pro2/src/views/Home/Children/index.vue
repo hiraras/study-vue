@@ -28,6 +28,7 @@
         },
         mounted: function() {
             console.log(this.$route);
+            console.log(this.a, this.b, this.id);
         }
     }
 </script>

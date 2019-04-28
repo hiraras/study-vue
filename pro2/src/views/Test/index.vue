@@ -19,6 +19,8 @@
         <router-link :to="'/test/' + routeName + '1'">change dynamic url</router-link>
         <br />
         <router-link :to="'/404'">to 404</router-link>
+        <!-- 渲染的内容会放在router-view中，然后根据 name 来渲染不同子模块 -->
+        <router-view name="default"></router-view>
         <router-view name="child"></router-view>
     </div>
 </template>
