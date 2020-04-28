@@ -7,6 +7,7 @@ import NotFound from './NotFound/index.vue';
 import HomeChild from './Home/Children/index.vue';
 import TestChild from './Test/Children/index.vue';
 import TestChild2 from './Test/Children/TestChild.vue';
+import ModuleTest from './module_test/index.vue';
 
 Vue.use(VueRouter);
 export default new VueRouter({
@@ -66,6 +67,11 @@ export default new VueRouter({
                     }
                 }
             ]
+        },
+        {
+            path: '/module-test',
+            name: 'ModuleTest',
+            component: ModuleTest,
         },
         // {
         //     path: '*',

@@ -20,7 +20,7 @@
                 }, 1000)
             });
             this.a = await p;
-            console.log(this.$route);
+            // console.log(this.$route);
         },
         components: {
             Home,
