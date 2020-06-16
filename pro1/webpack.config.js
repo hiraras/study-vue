@@ -1,6 +1,9 @@
 
+const webpack = require('webpack');
+
 
 module.exports = {
+    mode: process.env.NODE_ENV,
     entry: __dirname + '/public/index.js',
     output: {
         path: __dirname + '/public',
@@ -9,10 +12,17 @@ module.exports = {
     devtool: 'eval-source-map',
     devServer: {
         inline: true,
-        contentBase: './public'
+        contentBase: './',
+        openPage: '/public',
+        hot: true,
+        watchOptions: {
+            poll: true
+        }
     },
     module: {
 
     },
-    plugins: [],
+    plugins: [
+        new webpack.HotModuleReplacementPlugin(),
+    ],
 }

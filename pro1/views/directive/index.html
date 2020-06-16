@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>vue-directive</title>
+        <meta charset="utf-8" />
+        <link href="./index.css" type="text/css" rel="stylesheet" />
+        <style>
+        
+        </style>
+    </head>
+    <body>
+        <div id="root">
+            <input v-focus />
+            <blog></blog>
+            <p v-demo="{ a: 1 }"></p>
+        </div>
+    </body>
+    <script src="../../js/vue.js"></script>
+    <script src="../../js/jquery-1.11.2.min.js"></script>
+    <script src="./index.js"></script>
+    <script src="./components/blog.js"></script>
+    <script>
+        // 全局注册
+        Vue.directive("focus", {
+            // 元素被插入的时候执行
+            inserted: function(el) {
+                console.log('inserted');
+                el.focus();
+            },
+        })
+        Vue.directive('demo', {
+            bind: function (el, binding, vnode) {
+            var s = JSON.stringify
+            el.innerHTML =
+                'name: '       + s(binding.name) + '<br>' +
+                'value: '      + s(binding.value) + '<br>' +
+                'expression: ' + s(binding.expression) + '<br>' +
+                'argument: '   + s(binding.arg) + '<br>' +
+                'modifiers: '  + s(binding.modifiers) + '<br>' +
+                'vnode keys: ' + Object.keys(vnode).join(', ')
+            }
+        })
+        var vm = new Vue({
+            el: '#root',
+            data: {
+
+            },
+        });
+        console.log(vm);
+        
+
+    </script>
+</html>
