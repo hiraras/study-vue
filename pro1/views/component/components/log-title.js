@@ -7,6 +7,6 @@ Vue.component('log-title', {
     `,
     inject: ['fatherName'],
     mounted: function() {
-        console.log(this.fatherName);
+        console.log('fatherName', this.fatherName);
     },
 })

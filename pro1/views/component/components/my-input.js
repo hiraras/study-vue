@@ -1,4 +1,8 @@
 Vue.component('my-input', {
+    model: {
+        prop: 'value',
+        event: 'input'
+    },
     // 会被包含在实例中（生命周期函数的this）
     props: ['value'],
     data: function() {
@@ -9,7 +13,7 @@ Vue.component('my-input', {
     },
     template: `
     <div class="my-input-container">
-        <p>a:{{ a }} b:{{ b }}</p>
+        <p>a:{{ value }} b:{{ b }}</p>
         <input @input="$emit('input', $event.target.value)" :value="value" />
     </div>
     `,

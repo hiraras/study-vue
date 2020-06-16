@@ -12,6 +12,7 @@
     </head>
     <body>
         <div id="root">
+            <test-prop-update :value="testValue" @change="testValue=$event"></test-prop-update>
             <button-counter 
                 v-for="data in dataList"
                 :key="data.id"
@@ -23,18 +24,18 @@
             <blog
                 @change="changeContent"
                 :content="content"
-                :key="'blog' + 1"
+                key="blog1"
             ></blog>
             <blog
                 @change="content += '1'"
                 :content="content"
-                :key="'blog' + 2"
+                key="blog2"
             ></blog>
             <!-- 这种方法只能用$event接受第一个值 -->
             <blog
                 @change="changeContent($event)"
                 :content="content"
-                :key="'blog' + 3"
+                key="blog3"
             ></blog>
             <p>{{ inputValue }}</p>
             <!-- 以下两者，等价 -->
@@ -48,14 +49,22 @@
             <!-- v-model默认会将input事件作为响应事件，但checkbox可能是change，可以通过组件内部model属性改变 -->
             <my-checkbox v-model="checked"></my-checkbox>
             <label>{{ checked }}</label>
-            <div is="blog"></div>
+            <div 
+                is="blog"
+                @change="content = 'div is blog'"
+                :content="content"
+                key="blog4"
+            ></div>
+            <!-- 引用的内容是对象的话，会在页面上显示JSON.stringify 的值 -->
             <p>{{ obj }}</p>
-            <test :my-message="'1'" :obj="obj"></test>
+            <!-- 标签上的属性名需要用全小写-连接的形式，否则内部无法获取 -->
+            <test :my-message="'1'" :obj="obj" first-name="哈哈"></test>
             <local-component></local-component>
             <br />
             <component 
                 :is="activeComponent"
             ></component>
+            <hr />
             <component-a 
                 @say="say"
             ></component-a>
@@ -90,7 +99,7 @@
                     <p>{{ props.content }}</p>
                 </template>
                 <!-- v-slot="props"等价于v-slot:default="props" -->
-                <template v-slot="props">
+                <template v-slot:default="props">
                     <p>{{ props.content }}</p>
                 </template>
                 <!-- 
@@ -98,9 +107,26 @@
                     函数体内则是slot的内容，然后像调用函数一样渲染(跟react类似，标签即为函数，会自动渲染)
                     因为是参数所以能够解构赋值
                 -->
-                <!-- 下面这个不能用v-slot:default了，会不渲染 -->
-                <template v-slot:slot2="{ content: newContent }">
-                    <p>{{ newContent }}</p>
+                <template slot="slot2" slot-scope="{content}">
+                    <p>{{ content }}</p>
+                </template>
+                <!-- 
+                    下面这个不能用v-slot:default了，会不渲染
+                    已经使用过v-slot:xxx这种形式的插槽，后面的内容不管是用v-slot:xxx这种形式
+                    还是slot="xxx"这种形式来想要实现再次将内容放入到插槽都不会渲染
+                    只能都用slot="xxx"这样两部分内容才会都被添加进去
+                -->
+                <template v-slot:slot3>
+                    <p>slot3 part1</p>
+                </template>
+                <template v-slot:slot3>
+                    <p>slot3 part2</p>
+                </template>
+                <template slot="slot4">
+                    <p>slot4 part1</p>
+                </template>
+                <template slot="slot4">
+                    <p>slot4 part2</p>
                 </template>
             </slot3>
             <slot4 :list="dataList">
@@ -109,7 +135,7 @@
                 </li>
             </slot4>
             <slot5>
-                <my-input slot="slot"></my-input>
+                <my-input slot="slot" v-model="slot5InputValue"></my-input>
                 <p>456</p>
             </slot5>
             <slot6></slot6>
@@ -125,7 +151,7 @@
             <slot9>
                 <!-- 简写 -->
                 <template #default="props">
-                    <p>this is slot9: {{ props.data }}</p>
+                    <p>this is : {{ props.data }}</p>
                 </template>
             </slot9>
             <slot10 :slot-name="'slot10'">
@@ -151,8 +177,9 @@
                 :title.sync="title"
             ></text-document>
         </div>
+        <hr />
         <div id="root2">
-            <div v-show="false">
+            <div v-show="true">
                 <p>{{ inputValue }}</p>
                 <my-input
                     v-bind:value="inputValue"
@@ -176,6 +203,7 @@
     <script src="./components/listener.js"></script>
     <script src="./components/text-document.js"></script>
     <script src="./components/log-title.js"></script>
+    <script src="./components/test-prop-update.js"></script>
     <script>
         // 局部组件，定义在哪个实例对应的容器里面，只能在该容器内使用
         const LocalComponent = {
@@ -216,7 +244,11 @@
                 activeComponent: 'local-component',
                 title: 'title啊',
                 slotname: 'slot1',
-                propname: 'data',
+                propname: 'data1',
+                newContent: 'tested newContent',
+                slot5InputValue: '1',
+                testValue: 0,
+                btnStatus: true,
             },
             methods: {
                 changeContent: function(content, data) {
@@ -234,6 +266,11 @@
                 },
                 toggleSlotName: function(v) {
                     console.log(v);
+                },
+                changeSlot5InputValue: function(v) {
+                    this.slot5InputValue = v;
+                    console.log(v);
+                    this.$forceUpdate();
                 },
             },
             components: {

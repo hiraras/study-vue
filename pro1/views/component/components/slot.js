@@ -1,34 +1,36 @@
 // 最简单的插槽
 Vue.component('slot1', {
     template: `
-    <div>
-        <p>slot1</p>
+    <fieldset>
+        <legend>slot1</legend>
         <slot></slot>
-    </div>
+    </fieldset>
     `,
 });
 
 // 具名插槽
 Vue.component('slot2', {
     template: `
-    <div>
-        <p>slot2</p>
+    <fieldset>
+        <legend>slot2</legend>
         <slot name="slot1"></slot>
         <slot></slot>
         <slot name="slot2"></slot>
-    </div>
+    </fieldset>
     `,
 });
 
 // 作用域插槽
 Vue.component('slot3', {
     template: `
-    <div>
-        <p>slot3</p>
+    <fieldset>
+        <legend>slot3</legend>
         <slot name="slot1" content="啊啊啊"></slot>
         <slot content="是是是"></slot>
-        <slot name="slot2" content="给个光"></slot>
-    </div>
+        <slot name="slot2" content="给个光a"></slot>
+        <slot name="slot3">测试一下v-slot:xxx这种形式重复使用后的显示问题</slot>
+        <slot name="slot4">测试一下v-slot:xxx这种形式重复使用后的显示问题</slot>
+    </fieldset>
     `
 })
 
@@ -39,42 +41,42 @@ Vue.component('slot4', {
         }
     },
     template: `
-    <div>
-        <p>slot4</p>
+    <fieldset>
+        <legend>slot4</legend>
         <ul>
             <slot name="slot" v-for="item in list" :data="item"></slot>
         </ul>
-    </div>
+    </fieldset>
     `,
 })
 
 Vue.component('slot5', {
     template: `
-    <div>
-        <p>slot5</p>
+    <fieldset>
+        <legend>slot5</legend>
         <slot></slot>
         <slot name="slot"></slot>
-    </div>
+    </fieldset>
     `,
 })
 
 Vue.component('slot6', {
     template: `
-    <div>
-        <p>slot6</p>
+    <fieldset>
+        <legend>slot6</legend>
         <my-input></my-input>
-    </div>
+    </fieldset>
     `,
 })
 
 Vue.component('slot7', {
     template: `
-    <div>
-        <p>slot7</p>
+    <fieldset>
+        <legend>slot7</legend>
         <slot>
-            <p>ddd</p>
+            <p>测试插槽默认内容</p>
         </slot>
-    </div>
+    </fieldset>
     `,
 })
 
@@ -93,8 +95,8 @@ Vue.component('slot8', {
         },
     },
     template: `
-    <div>
-        <p>slot8</p>
+    <fieldset>
+        <legend>slot8</legend>
         <p>{{ name }},{{ slotName }}</p>
         <button @click="toggle">切换位置</button>
         <div style="backgroundColor: red;color: white">
@@ -103,21 +105,21 @@ Vue.component('slot8', {
         <div style="backgroundColor: green;color: white">
             <slot name="slot2">slot2</slot>
         </div>
-    </div>
+    </fieldset>
     `,
     mounted: function() {
-        console.log(this);
+        // console.log(this);
     },
 })
 
 Vue.component('slot9', {
     template: `
-    <div>
-        <p>slot9</p>
-        <slot data="1">
+    <fieldset>
+        <legend>slot9</legend>
+        <slot data="slot9">
             <p>slot9</p>
         </slot>
-    </div>
+    </fieldset>
     `,
 })
 
@@ -126,12 +128,12 @@ Vue.component('slot10', {
         slotName: String,
     },
     template: `
-    <div>
-        <p>slot10</p>
+    <fieldset>
+        <legend>slot10</legend>
         <slot data="1">
             <p>slot10</p>
         </slot>
-    </div>
+    </fieldset>
     `,
     provide: function() {
         return {

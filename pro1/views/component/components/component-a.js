@@ -15,7 +15,7 @@ Vue.component('component-a', {
             // 调用后执行对应对象上的监听方法，this就用组件上的方法，这里就是父组件传递下来的方法
             // 其他对象则调用其他对象上的监听方法，这里监听事件卸载component-b上了
             // this.$emit('says', 'this is component-a');
-            globalObj.$emit('say', 1);
+            globalObj.$emit('say', 1, 2);
         },
     },
     template: `

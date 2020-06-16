@@ -3,6 +3,7 @@ const webpack = require('webpack');
 
 
 module.exports = {
+    watch: true,
     mode: process.env.NODE_ENV,
     entry: __dirname + '/public/index.js',
     output: {
@@ -16,8 +17,9 @@ module.exports = {
         openPage: '/public',
         hot: true,
         watchOptions: {
-            poll: true
-        }
+            poll: 100,
+            ignored: /node_modules/
+        },
     },
     module: {
 

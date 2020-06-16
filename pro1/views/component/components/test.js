@@ -1,10 +1,10 @@
 Vue.component('test', {
     // 会被包含在实例中（生命周期函数的this）
     props: {
-        myMessage: String,
+        message: String,
         obj: Object,
         firstName: String,
-        data: null,
+        data1: null,
         // 基础类型检测 (`null` 指允许任何类型)
         // propA: Number,
         // // 可能是多种类型
@@ -41,7 +41,7 @@ Vue.component('test', {
     },
     template: `
     <div>
-        <p>{{ myMessage }}</p>
+        <p>{{ message }}</p>
         <p v-if="firstName">{{ firstName }}</p>
     </div>
     `,
@@ -49,7 +49,7 @@ Vue.component('test', {
         if(typeof this.obj === 'object' && this.obj) {
             this.obj.a = 2;
         }
-        console.log(this.$root);
-        console.log(this.data);
+        console.log('this.$root', this.$root); // 父级的vm对象
+        console.log('this.data', this.data1);
     },
 });
