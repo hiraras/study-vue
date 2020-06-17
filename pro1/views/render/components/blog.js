@@ -16,21 +16,22 @@ Vue.component('blog', {
             [...this.dataList.map(value => {
                 return createElement('p', [value])
             }), createElement('slot', {
-                slot: 'slot1'
-            }, this.$slots.slot1),
-                createElement('input', {
-                    domProps: {
-                        value: self.dataList
+                slot: 'slot2'
+            }, self.$slots.slot1),
+            createElement('input', {
+                domProps: {
+                    value: self.dataList
+                },
+                on: {
+                    input: function(e) {
+                        console.log(e.target.value);
                     },
-                    on: {
-                        input: function(e) {
-                            console.log(e.target.value);
-                        },
-                        keyup: function(event) {
-                            console.log(event);
-                        },
-                    }
-                })
+                    keyup: function(event) {
+                        console.log(event);
+                    },
+                }
+            }),
+            createElement('div', 'this is a div')
             ]
         )
     },

@@ -2,7 +2,7 @@
 Vue.component('listener', {
     props: {
     },
-    data: function() {
+    data: function () {
         return {
 
         };
@@ -10,13 +10,13 @@ Vue.component('listener', {
     methods: {
     },
     computed: {
-        handler: function(e) {
+        handler: function (e) {
             console.log(e);
             return Object.assign({}, this.$listener, {
-                focus: function(e) {
+                focus: function (e) {
                     console.log('focus');
                 },
-                input: function(e) {
+                input: function (e) {
                     console.log(e.target.value);
                 },
             });

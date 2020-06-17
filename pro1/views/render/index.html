@@ -15,6 +15,11 @@
                     <p>123</p>
                 </template>
             </blog>
+            <my-component>
+                <template #default="{ text }">
+                    <p>this is default slot content. and the text is {{ text }}</p>
+                </template>
+            </my-component>
         </div>
     </body>
     <script src="../../js/vue.js"></script>
@@ -22,13 +27,26 @@
     <script src="./index.js"></script>
     <script src="./components/blog.js"></script>
     <script>
+        const MyComponent = {
+            render: function(createElement) {
+                const self = this;
+                return createElement('div', [
+                    createElement('p', 'hello world'),
+                    self.$scopedSlots.default({
+                        text: 'hah'
+                    })
+                ])
+            }
+        }
         var vm = new Vue({
             el: '#root',
             data: {
-
+                
             },
+            components: {
+                'my-component': MyComponent
+            }
         });
         console.log(vm);
-        
     </script>
 </html>
