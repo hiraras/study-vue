@@ -14,8 +14,6 @@
             <button @click="changeName2(getRandom())">change name2 {{ state.storeB.name }}</button>
             <button @click="changeObj2">change object2 {{ state.storeB.obj }}</button>
         </div>
-        <router-link to="/home/123">to Home</router-link>
-        <button @click="toHome">to Home</button>
         <router-link :to="'/test/' + routeName + '1'">change dynamic url</router-link>
         <br />
         <router-link :to="'/404'">to 404</router-link>
@@ -59,11 +57,7 @@ export default {
             const name = this.$store.dispatch('storeB/changeName', this.getRandom());
         },
         changeObj2: function() {
-            this.$store.dispatch('storeA/changeObj', 3);
-        },
-        toHome: function() {
-            this.$router.push('/home/tom?a=1');
-            // this.$router.push('/test/' + this.$route.params.name + 1);
+            this.$store.dispatch('storeB/changeObj', 3);
         },
     },
     watch: {

@@ -14,7 +14,13 @@
                 a: 1,
             };
         },
+        computed: {
+            data() {
+                return obj.s
+            }
+        },
         mounted: async function() {
+            const self = this;
             const p = new Promise(function(resolve, reject) {
                 setTimeout(() => {
                     resolve(456)

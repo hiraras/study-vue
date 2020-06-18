@@ -7,6 +7,8 @@ import NotFound from './NotFound/index';
 import HomeChild from './Home/Children/index';
 import TestChild from './Test/Children/index';
 import FlowProps from './FlowProps/index';
+import SingleStore from './Store/SingleStore';
+import MultipleStore from './Store/MultipleStore';
 
 Vue.use(VueRouter);
 export default new VueRouter({
@@ -80,6 +82,16 @@ export default new VueRouter({
             path: '/flow-props',
             name: 'FlowProps',
             component: FlowProps,
+        },
+        {
+            path: '/single-store',
+            name: 'SingleStore',
+            component: SingleStore
+        },
+        {
+            path: '/multiple-store',
+            name: 'MultipleStore',
+            component: MultipleStore
         },
         {
             path: '*',

@@ -6,7 +6,7 @@ const initialState = {
 }
 const getters = {
     getName: function(state) {
-        return state.name;
+        return `this is module ${state.name}`;
     }
 }
 const mutations = {
