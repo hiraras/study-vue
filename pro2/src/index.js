@@ -52,11 +52,11 @@ const store = new Vuex.Store({
     }
 });
 router.beforeEach((to, from, next) => {
-    console.log(to, from);
+    console.log('to:', to);
+    console.log('from:', from);
     next();
 });
 new Vue({
-    mode: 'history',
     router: router,
     store: store,
     // el: '#root',

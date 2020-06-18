@@ -63,7 +63,6 @@ Vue.component('root1', {
             return this.now;
         },
         changeTestObj: function() {
-            // 深监听，对象属性发生改变也重新渲染
             this.testObj.a = 3;
         },
         getVisible: function() {
@@ -80,6 +79,8 @@ Vue.component('root1', {
         reversedStr: function() {
             return this.normalStr.split('').reverse().join('');
         },
+        // computed 里面的值会被缓存，应当应用在那些从data中衍生出的数据
+        // now 因为没有和任何data内的数据相关联，故不会更新
         now: function() {
             return new Date();
         },
@@ -92,7 +93,7 @@ Vue.component('root1', {
             }, 1000);
         },
         testObj: function() {
-            // 浅监听，对象内部值变化不会被监听到
+            // watch的是testObj这个对象，即这个对象的内存地址,故属性改变不会被监听
             console.log('testObj is value is changed');
         },
     },
@@ -100,6 +101,7 @@ Vue.component('root1', {
     <div>
         <!-- 设置插值一次，数据改变时不会改变显示 -->
         <p v-once>{{ message + ',this is extra message' }}</p>
+        <button @click="message = 'hi, this is new message'">修改</button>
         <p>{{ message2 }}</p>
         <!-- 值为true则渲染，否则不渲染，会进行类型转换在取值 -->
         <p v-if='show'>456</p>
@@ -107,14 +109,16 @@ Vue.component('root1', {
         <button :disabled='!buttonDisabled'>应用了简写:的按钮</button>
         <button v-on:click='toggleDisabled'>改变上个按钮的disabled属性</button>
         <button @click='toggleDisabled'>测试v-on改为@</button>
+        <br />
         <!-- .prevent回自动执行event.preventDefault方法 -->
-        <input @focus.prevent='focus' />
+        <input @focus.prevent='focus' placeholder="测试.prevent" />
         <p>{{ getMessage() }}</p>
         <p>{{ normalStr }}</p>
         <p>{{ reversedStr }}</p>
         <p>{{ reverseStr('hello') }}</p>
         <p>{{ now }}</p>
         <button @click='getNow'>获取now的值</button>
+        <br />
         <input v-model='question' />
         <p>{{ question }}</p>
         <p>{{ answer }}</p>
@@ -123,7 +127,7 @@ Vue.component('root1', {
         <p :class="classP">48949489</p>
         <p>{{ testObj }}</p>
         <button v-on:click='changeTestObj'>点击改变对象值</button>
-        <p :class='[message, { sam: true }]'>{{ja}}</p>
+        <p :class='[ja, { sam: true }]'>{{ja}}</p>
         <p :style='{ color: "pink" }'>kkkkkk</p>
         <!-- 会从前往后一个个应用样式，后面的相同样式覆盖前面的 -->
         <p :style="[otherStyle, baseStyle]">ssssss</p>

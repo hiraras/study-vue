@@ -81,6 +81,7 @@ Vue.component('root2', {
         },
         checkboxChange: function(e) {
             console.log(e);
+            this.testCheckboxValue = e.target.checked;
         },
     },
     computed: {
@@ -91,6 +92,8 @@ Vue.component('root2', {
     },
     template: `
     <div>
+        <hr style="border-color: red" />
+        <br />
         <p v-for="item in list">{{ item }}</p>
         <button @click="changeList">修改list</button>
         <p>{{ obj }}</p>
@@ -128,13 +131,15 @@ Vue.component('root2', {
             <span>456456</span>
         </p>
         <p @click.passive="testPassive">mmmmmmmmm</p>
-        <input @keyup.enter="testKeyup($event)" />
+        <input @keyup.enter="testKeyup($event)" placeholder="test key up" />
+        <br />
         <!-- 组合键，不在乎代码顺序，在乎按下顺序,除了.ctrl还有.alt,.shift,.meta -->
-        <input @keyup.enter.ctrl="testCombineKey" />
+        <input @keyup.enter.ctrl="testCombineKey" placeholder="test 组合键" />
         <p>{{ selectValue }}</p>
         <select v-model="selectValue" @change="selectValueChange($event)">
             <option v-for="item of exampleList" :key="item.id" :value="item.id">{{ item.content }}</option>
         </select>
+        <br />
         <textarea @input="textareaInput"></textarea>
         <p>{{ checkboxList }}</p>
         <input type="checkbox" value="mack" id="mack" @change="checkboxChange" v-model="checkboxList" />

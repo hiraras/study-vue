@@ -7,7 +7,7 @@ module.exports = {
         path: __dirname + '/public',
         filename: 'bundle.js',
     },
-    devtool: 'eval-source-map',
+    devtool: 'cheap-source-map',
     devServer: {
         contentBase: './public',
         inline: true,
@@ -34,8 +34,9 @@ module.exports = {
         new VueLoaderPlugin(),
     ],
     resolve: {
+        extensions: ['.js', '.vue', '.json'],
         alias: {
-            'vue$': 'vue/dist/vue.esm.js' // 用 webpack 1 时需用 'vue/dist/vue.common.js'
+            'vue$': 'vue/dist/vue.esm.js', // 用 webpack 1 时需用 'vue/dist/vue.common.js'
         }
     }
 }

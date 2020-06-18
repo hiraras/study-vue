@@ -1,13 +1,14 @@
 <template>
     <div class="container">
         <p>this is app</p>
+        <p>a: {{ a }}</p>
         <router-link to="/home/2">to home</router-link>
     </div>
 </template>
 
 <script>
-    import Home from '../Home/index.vue';
     export default {
+        props: ['meta'],
         data() {
             return {
                 a: 1,
@@ -21,9 +22,18 @@
             });
             this.a = await p;
             console.log(this.$route);
+            console.log('meta:', this.meta);
         },
         components: {
-            Home,
+        },
+        // 离开组件前调用的vue-router的生命周期钩子
+        beforeRouteLeave (to, from, next) {
+            const answer = window.confirm('Do you really want to leave? you have unsaved changes!')
+            if (answer) {
+                next()
+            } else {
+                next(false)
+            }
         }
     }
 </script>

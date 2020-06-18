@@ -37,12 +37,13 @@
         <div id="root2">
             <root2></root2>
         </div>
+        <hr />
+        <p>root3</p>
         <div id="root3">
             <!-- 过滤器 -->
             <div>{{ message | filterA(message2, 'hello') | filterB }}</div>
             <p>{{ filter() }}</p>
         </div>
-        <button onclick="testChange(this)">测试值变化</button>
     </body>
     <script src="../../js/vue.js"></script>
     <script src="../../js/jquery-1.11.2.min.js"></script>
@@ -85,13 +86,6 @@
             },
         });
         
-        function testChange(e) {
-            console.log(e)
-            vm2.obj.c = 2;
-        }
-        function test() {
-            console.log('outter');
-        }
         // 可配置keyup.enter对应的键盘码,下面定义值为32(默认对应space),此时按下space键，
         // 绑定了keyup.enter的事件会执行
         // Vue.config.keyCodes.enter = 32;
