@@ -13,8 +13,8 @@ router.beforeEach((to, from, next) => {
 new Vue({
     // el: '#root',
     router: router,
-    // store: singleStore,
-    store: multipleStore,
+    store: singleStore,
+    // store: multipleStore,
     template: '<router-view></router-view>',
     components: {
         App,

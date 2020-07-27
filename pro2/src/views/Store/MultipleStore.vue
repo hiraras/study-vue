@@ -23,6 +23,8 @@ export default {
 
         }
     },
+    mounted() {
+    },
     computed: {
         ...mapState({
             moduleAName: state => state.storeA.name,

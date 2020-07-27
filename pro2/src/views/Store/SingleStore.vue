@@ -14,14 +14,14 @@
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 export default {
-
+    mounted() {
+    },
     data: function() {
         return {
             dataList: ['today', 'nextWeek', 'nextYear']
         }
     },
     components: {
-        
     },
     computed: {
         ...mapState(['num', 'type']),

@@ -34,7 +34,7 @@ Vue.component('root2', {
     },
     methods: {
         changeList: function() {
-            // this.list = [4, 5, 6]; // 会引起使徒改变
+            // this.list = [4, 5, 6]; // 会引起视图改变
             this.list[2] = 6; // 不会引起视图改变
         },
         getDate: function() {

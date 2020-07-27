@@ -28,8 +28,8 @@ Vue.component('slot3', {
         <slot name="slot1" content="啊啊啊"></slot>
         <slot content="是是是"></slot>
         <slot name="slot2" content="给个光a"></slot>
-        <slot name="slot3">测试一下v-slot:xxx这种形式重复使用后的显示问题</slot>
-        <slot name="slot4">测试一下v-slot:xxx这种形式重复使用后的显示问题</slot>
+        <slot name="slot3">测试一下v-slot:xxx这种形式重复使用后的显示问题3</slot>
+        <slot name="slot4">测试一下v-slot:xxx这种形式重复使用后的显示问题4</slot>
     </fieldset>
     `
 })
