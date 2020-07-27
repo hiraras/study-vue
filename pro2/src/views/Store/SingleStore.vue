@@ -36,6 +36,14 @@ export default {
         },
         increment() {
             this.$store.commit('increaseNum', 2);
+            // 以下为dispatch的两种方式
+            // 这种会去寻找和type对应的action，payload为整个对象
+            // this.$store.dispatch({
+            //     type: 'increaseNum',
+            //     num: 3
+            // });
+            // 调用对应的action，payload为第二个参数
+            // this.$store.dispatch('increaseNum', 2);
             // this.increaseNum(1);
             // this.plus(3);
         },

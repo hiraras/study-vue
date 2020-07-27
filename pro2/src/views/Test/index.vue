@@ -58,6 +58,10 @@ export default {
         },
         changeObj2: function() {
             this.$store.dispatch('storeB/changeObj', 3);
+            // this.$store.dispatch({
+            //     type: 'storeB/changeObj',
+            //     payload: 3
+            // });
         },
     },
     watch: {

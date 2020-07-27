@@ -47,6 +47,10 @@ const actions = {
     getNum: function(context) {
         return context.getters.getNum;
     },
+    increaseNum: function(context, payload) {
+        console.log(context, payload)
+        context.commit('increaseNum', payload.num)
+    },
     changeObj: function(context, value) {
         context.commit('changeObj', value);
     },
